@@ -1,0 +1,6 @@
+rootProject.name = 'spring-boot-reactive'
+
+include 'blocking-storage'
+include 'users-service-nio'
+include 'users-service-shared'
+
