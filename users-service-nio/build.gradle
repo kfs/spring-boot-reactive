@@ -1,8 +1,9 @@
 plugins {
-    id 'java'
+    id 'org.springframework.boot' version '2.1.7.RELEASE'
 }
 
-version '1.0.0-SNAPSHOT'
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
 
 sourceCompatibility = 1.8
 
@@ -10,6 +11,18 @@ repositories {
     mavenCentral()
 }
 
+bootJar {
+    baseName = 'com.example.microservices.userservice'
+    version = '0.1.0'
+}
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb-reactive'
+    implementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
