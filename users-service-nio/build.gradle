@@ -12,7 +12,8 @@ repositories {
 }
 
 bootJar {
-    baseName = 'com.example.microservices.userservice'
+    group = 'com.example.microservices'
+    baseName = 'userservice'
     version = '0.1.0'
 }
 
@@ -23,6 +24,15 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb-reactive'
     implementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.0'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir project(':users-service-shared').file('src/main/java')
+        }
+    }
 }
