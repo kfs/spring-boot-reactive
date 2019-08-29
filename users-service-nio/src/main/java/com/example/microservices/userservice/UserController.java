@@ -31,11 +31,22 @@ public class UserController {
                 .log();
     }
 
+    @PostMapping(path = "/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<Void> createUser(@RequestBody Mono<UserDto> user) {
+        return user
+                .map(Mapper::mapNew)
+                .flatMap(this.repository::insert)
+                .then()
+                .log();
+    }
+
     @PostMapping(path = "/users", consumes = "application/stream+json")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Void> bulkCreateUsers(@RequestBody Flux<UserDto> users) {
-        return this.repository
-                .insert(users.map(Mapper::map))
+        return users
+                .map(Mapper::mapNew)
+                .flatMap(this.repository::insert)
                 .then()
                 .log();
     }
